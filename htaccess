@@ -1,0 +1,82 @@
+# Configuración de Apache para DevServices
+
+# Habilitar reescritura de URLs
+RewriteEngine On
+
+# Remover parámetro ?i=1 y otros parámetros no deseados
+RewriteCond %{QUERY_STRING} ^i=1$ [NC]
+RewriteRule ^(.*)$ /$1? [R=301,L]
+
+# Remover cualquier parámetro que empiece con 'i='
+RewriteCond %{QUERY_STRING} ^i=.*$ [NC]
+RewriteRule ^(.*)$ /$1? [R=301,L]
+
+# Redireccionar www a no-www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Forzar HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Página de inicio por defecto
+DirectoryIndex index.php index.html
+
+# Comprimir archivos
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Cache de archivos estáticos
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>
+
+# Seguridad
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+</IfModule>
+
+# Ocultar archivos sensibles
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "debug.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Páginas de error personalizadas
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# Prevenir acceso directo a archivos PHP de configuración
+<FilesMatch "^(config|debug|clean-redirect)\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

@@ -1,0 +1,288 @@
+/* Fixes específicos para móvil */
+
+/* Asegurar que el menú móvil funcione correctamente */
+@media (max-width: 768px) {
+  /* Header fixes */
+  .header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .header .container {
+    position: relative;
+  }
+
+  /* Botón de menú móvil */
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+  }
+
+  .mobile-menu-btn i {
+    font-size: 1.5rem;
+    color: var(--gray-700);
+    transition: all 0.3s ease;
+  }
+
+  /* Menú móvil */
+  .nav-menu {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+
+  .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  /* Overlay para cerrar menú */
+  .nav-menu.active::before {
+    content: "";
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  /* Reducir tamaño del botón de consulta en móvil */
+  .header .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .hero-image {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+
+  .floating-shape {
+    display: none;
+  }
+
+  .service-card {
+    padding: 1.5rem;
+  }
+
+  .pricing-card {
+    margin-bottom: 1rem;
+  }
+
+  .contact-form-container {
+    margin-top: 2rem;
+  }
+
+  .experience-badge {
+    position: static;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+
+  /* Footer centrado en móvil */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .footer-brand-section {
+    order: -1;
+  }
+
+  .footer-brand {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  .footer-section h4 {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .footer-section ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    list-style: none;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 0;
+  }
+
+  .footer-section ul li a {
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+  }
+
+  .footer-section ul li a:hover {
+    color: var(--white);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-800);
+  }
+
+  .footer-social {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .footer-social a {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-800);
+    border-radius: 50%;
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .footer-social a:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+}
+
+/* Fixes para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .hero-buttons {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Reducir aún más el botón de consulta en pantallas muy pequeñas */
+  .header .btn-primary {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .stat {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .service-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .pricing-header .price {
+    font-size: 2.5rem;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .footer-content {
+    gap: 2rem;
+  }
+
+  .footer-section h4 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section ul {
+    gap: 0.5rem;
+  }
+
+  .footer-section ul li a {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    gap: 1rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}
+
+/* Asegurar que el contenido principal no se superponga con el header fijo */
+body {
+  padding-top: 0;
+}
+
+.hero {
+  padding-top: 8rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 6rem;
+  }
+}
